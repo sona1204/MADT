@@ -1,0 +1,32 @@
+package com.example.login;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.*;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText user, pass;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        user = findViewById(R.id.user);
+        pass = findViewById(R.id.pass);
+    }
+
+    public void login(View v) {
+
+        String u = user.getText().toString();
+        String p = pass.getText().toString();
+
+        if (u.equals(p)) {
+            Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Invalid Login", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
