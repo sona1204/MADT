@@ -1,0 +1,51 @@
+package com.example.armstrong;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText num;
+    TextView result;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        num = findViewById(R.id.num);
+        result = findViewById(R.id.result);
+    }
+
+    public void checkArmstrong(View v) {
+        int n = Integer.parseInt(num.getText().toString());
+        int original = n, sum = 0, digits = 0;
+
+        int temp = n;
+
+        // Count digits
+        while (temp > 0) {
+            digits++;
+            temp /= 10;
+        }
+
+        temp = n;
+
+        // Calculate Armstrong sum
+        while (temp > 0) {
+            int rem = temp % 10;
+            sum += Math.pow(rem, digits);
+            temp /= 10;
+        }
+
+        if (sum == original) {
+            result.setText("Armstrong Number");
+        } else {
+            result.setText("Not an Armstrong Number");
+        }
+    }
+}
