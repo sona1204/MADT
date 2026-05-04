@@ -1,0 +1,44 @@
+package com.example.imageswitcher;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
+import android.widget.ViewSwitcher;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    ImageSwitcher imageSwitcher;
+    int[] images = {R.drawable.img1, R.drawable.img2, R.drawable.img3};
+    int index = 0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        imageSwitcher = findViewById(R.id.imageSwitcher);
+
+        // setFactory() implementation
+        imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                ImageView img = new ImageView(MainActivity.this);
+                img.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                img.setLayoutParams(new ImageSwitcher.LayoutParams(
+                        ImageSwitcher.LayoutParams.MATCH_PARENT,
+                        ImageSwitcher.LayoutParams.MATCH_PARENT));
+                return img;
+            }
+        });
+
+        imageSwitcher.setImageResource(images[index]);
+    }
+
+    public void changeImage(View v) {
+        index = (index + 1) % images.length;
+        imageSwitcher.setImageResource(images[index]);
+    }
+}
