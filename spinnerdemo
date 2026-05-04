@@ -1,0 +1,35 @@
+package com.example.spinnerdemo;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.*;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    Spinner spinner;
+    TextView result;
+
+    String items[] = {"Java", "Android", "PHP", "Python"};
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        spinner = findViewById(R.id.spinner);
+        result = findViewById(R.id.result);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+    }
+
+    public void showItem(View v) {
+        String selected = spinner.getSelectedItem().toString();
+        result.setText("Selected: " + selected);
+    }
+}
