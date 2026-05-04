@@ -1,0 +1,45 @@
+package com.example.phonevalidation;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText phone;
+    TextView result;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        phone = findViewById(R.id.phone);
+        result = findViewById(R.id.result);
+    }
+
+    public void validatePhone(View v) {
+        String input = phone.getText().toString();
+
+        // Check length
+        if (input.length() < 6 || input.length() > 8) {
+            result.setText("Invalid: Length must be 6-8 digits");
+            return;
+        }
+
+        // Check area code
+        if (input.startsWith("040") ||
+            input.startsWith("041") ||
+            input.startsWith("050") ||
+            input.startsWith("0400") ||
+            input.startsWith("044")) {
+
+            result.setText("Valid Phone Number");
+        } else {
+            result.setText("Invalid Area Code");
+        }
+    }
+}
