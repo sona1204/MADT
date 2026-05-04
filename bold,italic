@@ -1,0 +1,70 @@
+package com.example.formatapp;
+
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
+import android.view.View;
+import android.widget.*;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText name;
+    TextView result;
+    RadioGroup radioGroup;
+    CheckBox bold, italic, underline;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        name = findViewById(R.id.name);
+        result = findViewById(R.id.result);
+        radioGroup = findViewById(R.id.radioGroup);
+        bold = findViewById(R.id.bold);
+        italic = findViewById(R.id.italic);
+        underline = findViewById(R.id.underline);
+    }
+
+    public void show(View v) {
+        String text = "Hello " + name.getText().toString();
+        result.setText(text);
+
+        // Color selection
+        int selectedId = radioGroup.getCheckedRadioButtonId();
+        if (selectedId == R.id.red) result.setTextColor(Color.RED);
+        else if (selectedId == R.id.blue) result.setTextColor(Color.BLUE);
+        else if (selectedId == R.id.green) result.setTextColor(Color.GREEN);
+
+        // Style
+        int style = Typeface.NORMAL;
+        if (bold.isChecked() && italic.isChecked())
+            style = Typeface.BOLD_ITALIC;
+        else if (bold.isChecked())
+            style = Typeface.BOLD;
+        else if (italic.isChecked())
+            style = Typeface.ITALIC;
+
+        result.setTypeface(null, style);
+
+        // Underline
+        if (underline.isChecked()) {
+            SpannableString content = new SpannableString(result.getText());
+            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+            result.setText(content);
+        }
+    }
+
+    public void clear(View v) {
+        name.setText("");
+        result.setText("");
+    }
+
+    public void exit(View v) {
+        finish();
+    }
+}
