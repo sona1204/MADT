@@ -1,0 +1,39 @@
+package com.example.loginform;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText username, password;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+    }
+
+    public void login(View v) {
+
+        String user = username.getText().toString();
+        String pass = password.getText().toString();
+
+        // Validation
+        if (user.isEmpty() || pass.isEmpty()) {
+            Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+        }
+        else if (user.equals("admin") && pass.equals("1234")) {
+            Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
