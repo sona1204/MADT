@@ -1,0 +1,33 @@
+package com.example.factorial;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.*;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText num;
+    TextView result;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        num = findViewById(R.id.num);
+        result = findViewById(R.id.result);
+    }
+
+    public void fact(View v) {
+        int n = Integer.parseInt(num.getText().toString());
+        long fact = 1;
+
+        for (int i = 1; i <= n; i++) {
+            fact *= i;
+        }
+
+        result.setText("Factorial = " + fact);
+    }
+}
