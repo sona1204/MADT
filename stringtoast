@@ -1,0 +1,31 @@
+package com.example.stringtoast;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText input;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        input = findViewById(R.id.input);
+    }
+
+    public void upper(View v) {
+        String text = input.getText().toString();
+        Toast.makeText(this, text.toUpperCase(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void lower(View v) {
+        String text = input.getText().toString();
+        Toast.makeText(this, text.toLowerCase(), Toast.LENGTH_SHORT).show();
+    }
+}
