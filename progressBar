@@ -1,0 +1,38 @@
+package com.example.progressbar;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    ProgressBar progressBar;
+    int progress = 0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        progressBar = findViewById(R.id.progressBar);
+    }
+
+    public void startProgress(View v) {
+        progress = 0;
+
+        new Thread(() -> {
+            while (progress < 100) {
+                progress += 10;
+
+                runOnUiThread(() -> progressBar.setProgress(progress));
+
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) { }
+            }
+        }).start();
+    }
+}
