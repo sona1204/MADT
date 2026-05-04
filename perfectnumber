@@ -1,0 +1,38 @@
+package com.example.perfectnumber;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText num;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        num = findViewById(R.id.num);
+    }
+
+    public void checkNumber(View v) {
+        int n = Integer.parseInt(num.getText().toString());
+        int sum = 0;
+
+        for (int i = 1; i <= n/2; i++) {
+            if (n % i == 0) {
+                sum += i;
+            }
+        }
+
+        if (sum == n) {
+            Toast.makeText(this, "Perfect Number", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Not a Perfect Number", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
