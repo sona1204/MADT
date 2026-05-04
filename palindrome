@@ -1,0 +1,41 @@
+package com.example.palindrome;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText getnum;
+    TextView result;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        getnum = findViewById(R.id.getnum);
+        result = findViewById(R.id.result);
+    }
+
+    public void checkPalindrome(View v) {
+
+        int n = Integer.parseInt(getnum.getText().toString());
+        int original = n, reverse = 0;
+
+        while (n != 0) {
+            int rem = n % 10;
+            reverse = reverse * 10 + rem;
+            n /= 10;
+        }
+
+        if (original == reverse) {
+            result.setText("Palindrome Number");
+        } else {
+            result.setText("Not a Palindrome");
+        }
+    }
+}
