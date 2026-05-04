@@ -1,0 +1,77 @@
+@DBHelper.java 
+
+package com.example.studentdb;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+public class DBHelper extends SQLiteOpenHelper {
+
+    public static final String DB_NAME = "StudentDB";
+    public static final int DB_VERSION = 1;
+
+    public DBHelper(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE Student(roll_no INTEGER PRIMARY KEY, name TEXT, address TEXT, percentage REAL)");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS Student");
+        onCreate(db);
+    }
+}
+
+
+@MainActivity.java
+
+package com.example.studentdb;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    DBHelper dbHelper;
+    TextView textView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        textView = findViewById(R.id.textView);
+        dbHelper = new DBHelper(this);
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // Insert 5 records
+        db.execSQL("INSERT INTO Student VALUES(1, 'Amit', 'Pune', 85.5)");
+        db.execSQL("INSERT INTO Student VALUES(2, 'Neha', 'Mumbai', 90.0)");
+        db.execSQL("INSERT INTO Student VALUES(3, 'Ravi', 'Nashik', 78.2)");
+        db.execSQL("INSERT INTO Student VALUES(4, 'Sneha', 'Nagpur', 88.8)");
+        db.execSQL("INSERT INTO Student VALUES(5, 'Rahul', 'Delhi', 82.4)");
+
+        // Fetch and display all records
+        Cursor c = db.rawQuery("SELECT * FROM Student", null);
+
+        String data = "";
+        while (c.moveToNext()) {
+            data += "Roll No: " + c.getInt(0) + "\n";
+            data += "Name: " + c.getString(1) + "\n";
+            data += "Address: " + c.getString(2) + "\n";
+            data += "Percentage: " + c.getDouble(3) + "\n\n";
+        }
+
+        textView.setText(data);
+    }
+}
